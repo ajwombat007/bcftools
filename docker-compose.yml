@@ -25,12 +25,12 @@ services:
       dockerfile: Dockerfile
     image: jbrowse2:latest
     ports:
-      - "8888:80"
+      - "18080:80"
     volumes:
       - ./data:/data
-    # Browse: http://localhost:8888
+    # Browse: http://localhost:18080
     #
     # To add tracks via the UI:
     #   1. Place .vcf.gz + .vcf.gz.tbi files in ./data/
     #   2. In JBrowse: Open > Track > URL
-    #   3. Enter: http://localhost:8888/data/yourfile.vcf.gz
+    #   3. Enter: http://localhost:18080/data/yourfile.vcf.gz
