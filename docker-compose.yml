@@ -1,0 +1,36 @@
+services:
+  bcftools:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bcftools:1.23.1
+    volumes:
+      - ./data:/data
+    entrypoint: ["bcftools"]
+    # Usage:
+    #   docker compose run --rm bcftools --version
+    #   docker compose run --rm bcftools view /data/input.vcf.gz
+    #   docker compose run --rm bcftools stats /data/input.vcf.gz
+    #
+    # For bgzip/tabix (from HTSlib):
+    #   docker compose run --rm --entrypoint bgzip bcftools /data/input.vcf
+    #   docker compose run --rm --entrypoint tabix bcftools -p vcf /data/input.vcf.gz
+    #
+    # Interactive shell:
+    #   docker compose run --rm --entrypoint /bin/bash bcftools
+
+  jbrowse:
+    build:
+      context: ./jbrowse
+      dockerfile: Dockerfile
+    image: jbrowse2:latest
+    ports:
+      - "8888:80"
+    volumes:
+      - ./data:/data
+    # Browse: http://localhost:8888
+    #
+    # To add tracks via the UI:
+    #   1. Place .vcf.gz + .vcf.gz.tbi files in ./data/
+    #   2. In JBrowse: Open > Track > URL
+    #   3. Enter: http://localhost:8888/data/yourfile.vcf.gz
